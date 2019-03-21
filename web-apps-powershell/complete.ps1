@@ -1,3 +1,10 @@
+if (""+$env.username -eq "") {
+	$username = Read-Host -Prompt 'Input your CMUTUAL user name (e.g. "shk6756")'
+	$env = @{}
+	$env.username = $username
+	$env.username = ($env.username -replace "[^0-9a-z]", "")
+}
+
 $resourceGroupName = "$env:username-lunch-webapp-rg"
 $appServicePlanName = "$env:username-lunch-hp"
 $webAppServiceName = "$env:username-lunch-web-as"
@@ -14,7 +21,7 @@ Write-Host "Creating app service plan $appServicePlanName..."
 az appservice plan create -g $resourceGroupName `
     --name $appServicePlanName `
     --sku S1 `
-    --location northcentralus 
+    --location eastus 
 
 Write-Host "Creating app service $webAppServiceName..."
 az webapp create -n $webAppServiceName `

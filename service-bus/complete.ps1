@@ -1,3 +1,10 @@
+if (""+$env.username -eq "") {
+	$username = Read-Host -Prompt 'Input your CMUTUAL user name (e.g. "shk6756")'
+	$env = @{}
+	$env.username = $username
+	$env.username = ($env.username -replace "[^0-9a-z]", "")
+}
+
 $resourceGroupName = "$env:username-lunch-servicebus-rg"
 $webAppesourceGroupName = "$env:username-lunch-webapp-rg"
 $serviceBusNamespaceName = "$env:username-lunch-sbns"
@@ -30,7 +37,7 @@ if ("true" -eq (az group show --name $resourceGroupName)) {
 }
 
 Write-Host "Creating resource group..."
-az group create --name $resourceGroupName --location "North Central US"
+az group create --name $resourceGroupName --location "East US"
 
 Write-Host "Creating service bus namespace $serviceBusNamespaceName..."
 az servicebus namespace create `
